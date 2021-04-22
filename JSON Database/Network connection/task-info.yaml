@@ -92,18 +92,12 @@ files:
         }
     }
   learner_created: false
-- name: src/JDatabase/JDatabase.java
-  visible: true
-  learner_created: true
 - name: src/server/JDatabase.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/65/stages/349/implement#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #1
-
-    Server output should be &#39;Server started!&#39; until a client connects!
-  time: Wed, 21 Apr 2021 07:40:59 UTC
+  message: Congratulations!
+  time: Thu, 22 Apr 2021 08:05:36 UTC
 record: -1

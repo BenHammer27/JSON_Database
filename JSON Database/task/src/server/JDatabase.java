@@ -1,15 +1,15 @@
 package server;
 
 public class JDatabase {
-    private String[] JASON;
+    private String[] JSON;
 
     JDatabase(int size) {
-        this.JASON = new String[size];
+        this.JSON = new String[size];
     }
 
     public String set(int index, String text) {
-        if (index < JASON.length && index >= 0) {
-            JASON[index] = text.trim();
+        if (index < JSON.length && index >= 0) {
+            JSON[index] = text.trim();
             return "OK";
         } else {
             return "ERROR";
@@ -17,22 +17,22 @@ public class JDatabase {
     }
 
     public String get(int index) {
-        if (index > JASON.length || index < 0 ) {
+        if (index > JSON.length || index < 0 ) {
             return "ERROR";
         } else {
-            if (JASON[index].isEmpty()) {
+            if (JSON[index].isEmpty()) {
                 return "ERROR";
             } else {
-                return JASON[index];
+                return JSON[index];
             }
         }
     }
 
     public String delete(int index) {
-        if (index > JASON.length - 1 || index < 0 ) {
+        if (index > JSON.length - 1 || index < 0 ) {
             return "ERROR";
         } else {
-            JASON[index] = "";
+            JSON[index] = "";
             return "OK";
         }
     }
