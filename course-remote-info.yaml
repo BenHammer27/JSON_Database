@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/210138/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Thu, 22 Apr 2021 07:09:16 UTC
+update_date: Thu, 29 Apr 2021 08:26:32 UTC
 stages:
 - id: 348
   step: 5490
@@ -228,8 +228,10 @@ topics:
     theory_id: 7929
   - title: 'Hashing: overview'
     theory_id: 9831
+  - title: Hash function
+    theory_id: 10878
   - title: Hash table
-    theory_id: 5364
+    theory_id: 13054
   - title: JSON
     theory_id: 6854
   - title: Iterating over arrays

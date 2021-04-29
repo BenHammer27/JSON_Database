@@ -1,6 +1,6 @@
-client/Main.java
- client.Main
 server/Main.java
  server.Main
 server/JDatabase.java
  server.JDatabase
+client/Main.java
+ client.Main

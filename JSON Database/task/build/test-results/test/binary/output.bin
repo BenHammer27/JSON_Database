@@ -1,2 +1,8 @@
 [1;31m
 Start test 1[0m
+Server started!
+ Received: Give me a record # 12
+Client started!
+Sent: A record # 12 was sent!
+Sent: Give me a record # 12
+"Received: A record # 12 was sent!
