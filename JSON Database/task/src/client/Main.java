@@ -3,6 +3,7 @@ package client;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
+import com.beust.jcommander.Parameter;
 
 public class Main {
     private static final String SERVER_ADDRESS = "127.0.0.1";
@@ -10,25 +11,30 @@ public class Main {
 
     public static void main(String[] args) {
 
+        boolean exit = false;
+        while (!exit) {
 
-        try (  Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-               DataInputStream input = new DataInputStream(socket.getInputStream());
-               DataOutputStream output = new DataOutputStream(socket.getOutputStream())
-        ) {
-            System.out.println("Client started!");
-            Scanner scanner = new Scanner(System.in);
-            //String msg = scanner.nextLine();
+            try (
+                    Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+                    DataInputStream input = new DataInputStream(socket.getInputStream());
+                    DataOutputStream output = new DataOutputStream(socket.getOutputStream())
+            ) {
+                System.out.println("Client started!");
+                Scanner scanner = new Scanner(System.in);
+                String msg = scanner.nextLine();
 
-            //output.writeUTF(msg);
-            System.out.println("Sent: Give me a record # 12");
+                output.writeUTF(msg);
 
-            //String receivedMsg = input.readUTF();
+                String receivedMsg = input.readUTF();
 
-            System.out.println("Received: A record # 12 was sent!");
+                System.out.println(receivedMsg);
+                if (msg.equals("exit")) {
+                    exit = true;
+                }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-
 }

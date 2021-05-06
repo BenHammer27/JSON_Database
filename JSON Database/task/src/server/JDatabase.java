@@ -1,10 +1,13 @@
 package server;
 
+import java.util.Arrays;
+
 public class JDatabase {
     private String[] JSON;
 
     JDatabase(int size) {
         this.JSON = new String[size];
+        Arrays.fill(JSON, "");
     }
 
     public String set(int index, String text) {
