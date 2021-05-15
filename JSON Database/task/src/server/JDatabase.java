@@ -1,42 +1,38 @@
 package server;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JDatabase {
-    private String[] JSON;
 
-    JDatabase(int size) {
-        this.JSON = new String[size];
-        Arrays.fill(JSON, "");
+    private Map<String, String> JSON;
+
+    JDatabase(/*int size*/) {
+        this.JSON = new HashMap<String, String>();
     }
 
-    public String set(int index, String text) {
-        if (index < JSON.length && index >= 0) {
-            JSON[index] = text.trim();
-            return "OK";
+    public String set(String key, String value) {
+        if (JSON.containsKey(key)) {
+            JSON.remove(key);
+        }
+        JSON.put(key, value);
+        return "OK";
+    }
+
+    public String get(String key) {
+        if (JSON.containsKey(key)) {
+            return JSON.get(key);
         } else {
             return "ERROR";
         }
     }
 
-    public String get(int index) {
-        if (index > JSON.length || index < 0 ) {
-            return "ERROR";
-        } else {
-            if (JSON[index].isEmpty()) {
-                return "ERROR";
-            } else {
-                return JSON[index];
-            }
-        }
-    }
-
-    public String delete(int index) {
-        if (index > JSON.length - 1 || index < 0 ) {
-            return "ERROR";
-        } else {
-            JSON[index] = "";
+    public String delete(String key) {
+        if(JSON.containsKey(key)) {
+            JSON.remove(key);
             return "OK";
+        } else {
+            return "ERROR";
         }
     }
 }

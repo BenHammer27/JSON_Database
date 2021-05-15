@@ -379,6 +379,73 @@ files:
 
     }
   learner_created: false
+- name: src/client/Args.java
+  visible: true
+  text: |
+    package client;
+    import com.beust.jcommander.Parameter;
+
+    public class Args {
+        @Parameter(names = "-t", description = "Type of request")
+        String type;
+        @Parameter(names = "-i", description = "Index")
+        int index;
+        @Parameter(names = "-m", description = "Message to store in the database")
+        String message;
+    }
+  learner_created: true
+- name: src/server/JDatabase.java
+  visible: true
+  text: |
+    package server;
+
+    import java.util.Arrays;
+
+    public class JDatabase {
+        private String[] JSON;
+
+        JDatabase(int size) {
+            this.JSON = new String[size];
+            Arrays.fill(JSON, "");
+        }
+
+        public String set(int index, String text) {
+            if (index < JSON.length && index >= 0) {
+                JSON[index] = text.trim();
+                return "OK";
+            } else {
+                return "ERROR";
+            }
+        }
+
+        public String get(int index) {
+            if (index > JSON.length || index < 0 ) {
+                return "ERROR";
+            } else {
+                if (JSON[index].isEmpty()) {
+                    return "ERROR";
+                } else {
+                    return JSON[index];
+                }
+            }
+        }
+
+        public String delete(int index) {
+            if (index > JSON.length - 1 || index < 0 ) {
+                return "ERROR";
+            } else {
+                JSON[index] = "";
+                return "OK";
+            }
+        }
+    }
+  learner_created: true
+- name: src/server/JsonData.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/65/stages/351/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sat, 15 May 2021 09:23:52 UTC
+record: 4

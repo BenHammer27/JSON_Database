@@ -2,14 +2,18 @@ package server;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.*;
+
 
 public class Main {
 
     public static final int PORT = 23456;
 
     public static void main(String[] args) {
-        JDatabase JSON = new JDatabase(1000);
+        JDatabase JSON = new JDatabase();
 
         System.out.println("Server started!");
         String result = "";
@@ -23,34 +27,43 @@ public class Main {
                         DataInputStream input = new DataInputStream(socket.getInputStream());
                         DataOutputStream output = new DataOutputStream(socket.getOutputStream());
                 ) {
-                    String[] msg = input.readUTF().trim().split(" ");
-                    int index = 0;
-                    if (msg.length > 1) {
-                        index = Integer.parseInt(msg[1]);
-                    }
-                    switch (msg[0]) {
+                    String msg = input.readUTF();
+
+                    Gson gson = new Gson();
+                    JsonData jsonData = gson.fromJson(msg, JsonData.class);
+
+                    Map<String, String> response = new HashMap<>();
+
+                    switch (jsonData.getType()) {
                         case "set":
-                            String text = "";
-                            for (int i = 2; i < msg.length; i++) {
-                                text += msg[i] + " ";
-                            }
-                            result = JSON.set(index, text);
-                            System.out.println(result);
+                            response.put("response", JSON.set(jsonData.getKey(), jsonData.getValue()));
                             break;
                         case "get":
-                            result = JSON.get(index);
-                            System.out.println(result);
+                            result = JSON.get(jsonData.getKey());
+                            if (result.equals("ERROR")) {
+                                response.put("response", result);
+                                response.put("reason", "No such key");
+                            } else {
+                                response.put("response", "OK");
+                                response.put("value", result);
+                            }
                             break;
                         case "delete":
-                            result = JSON.delete(index);
+                            result = JSON.delete(jsonData.getKey());
+                            if (result.equals("ERROR")) {
+                                response.put("response", result);
+                                response.put("reason", "No such key");
+                            } else {
+                                response.put("response", "OK");
+                            }
                             break;
                         case "exit":
                             exit = true;
-                            result = "OK";
+                            response.put("response", "OK");
                             break;
                     }
-
-                    output.writeUTF(result);
+                    Gson message = new Gson();
+                    output.writeUTF(message.toJson(response));
                 }
             } catch (IOException e) {
                 e.printStackTrace();

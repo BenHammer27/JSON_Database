@@ -586,6 +586,96 @@ files:
         }
     }
   learner_created: false
+- name: src/client/Args.java
+  visible: true
+  text: |
+    package client;
+    import com.beust.jcommander.Parameter;
+
+    public class Args {
+        @Parameter(names = "-t", description = "Type of request")
+        String type;
+        @Parameter(names = "-k", description = "key")
+        String key;
+        @Parameter(names = "-v", description = "value")
+        String value;
+    }
+  learner_created: true
+- name: src/server/JDatabase.java
+  visible: true
+  text: |
+    package server;
+
+    import java.util.Arrays;
+    import java.util.HashMap;
+    import java.util.Map;
+
+    public class JDatabase {
+        //private String[] JSON;
+        private Map<String, String> JSON;
+
+        JDatabase(/*int size*/) {
+            this.JSON = new HashMap<String, String>();
+            //this.JSON = new String[size];
+            //Arrays.fill(JSON, "");
+        }
+
+        public String set(String key, String value) {
+            if (JSON.containsKey(key)) {
+                JSON.remove(key);
+            }
+            JSON.put(key, value);
+            return "OK";
+
+            /*if (index < JSON.length && index >= 0) {
+                //JSON[index] = text.trim();
+                return "OK";
+            //} else {
+                //return "ERROR";
+            }*/
+        }
+
+        public String get(String key) {
+            if (JSON.containsKey(key)) {
+                return JSON.get(key);
+            } else {
+                return "ERROR";
+            }
+
+            /*if (index > JSON.length || index < 0 ) {
+                return "ERROR";
+            } else {
+                if (JSON[index].isEmpty()) {
+                    return "ERROR";
+                } else {
+                    return JSON[index];
+                }
+            }*/
+        }
+
+        public String delete(String key) {
+            if(JSON.containsKey(key)) {
+                JSON.remove(key);
+                return "OK";
+            } else {
+                return "ERROR";
+            }
+
+            /*if (index > JSON.length - 1 || index < 0 ) {
+                return "ERROR";
+            } else {
+                JSON[index] = "";
+                return "OK";
+            }*/
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/65/stages/352/implement#comment
-status: Unchecked
-record: -1
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #1
+
+    Can&#39;t find /client/data/ folder.
+  time: Fri, 14 May 2021 10:27:46 UTC
+record: 5
